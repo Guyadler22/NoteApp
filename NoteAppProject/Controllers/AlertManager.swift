@@ -10,7 +10,7 @@ import UIKit
 class AlertManager {
     
     private static func showBasicAlert(on vc: UIViewController, title:String, message: String?){
-   
+        
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
@@ -20,6 +20,14 @@ class AlertManager {
     }
 }
 
+extension AlertManager {
+    public static func showSeccesfullAlert(on vc:UIViewController){
+        self.showBasicAlert(on: vc, title: "Registration was successfully", message: "You have successfully registered ")
+    }
+    
+}
+
+
 //MARK:- Show Validation alert
 extension AlertManager {
     
@@ -28,7 +36,7 @@ extension AlertManager {
     }
     
     public static func showInvalidPasswordAlert(on vc:UIViewController){
-        self.showBasicAlert(on: vc, title: "Invalid Password", message: "Please enter a valid Password.")
+        self.showBasicAlert(on: vc, title: "Invalid Password", message: "Please enter a valid Password. with one upercase one lower case and uniq character. minimum 8 digits.")
     }
     
     public static func showInvalidUsernameAlert(on vc:UIViewController){
@@ -62,13 +70,13 @@ extension AlertManager {
     }
     
 }
-    //MARK:- Logout Errors
-    extension AlertManager {
-        
-        public static func showLogoutErrorAlert(on vc:UIViewController,with error:Error){
-            self.showBasicAlert(on: vc, title: "Logout", message: "\(error.localizedDescription)")
-        }
-        
+//MARK:- Logout Errors
+extension AlertManager {
+    
+    public static func showLogoutErrorAlert(on vc:UIViewController,with error:Error){
+        self.showBasicAlert(on: vc, title: "Logout", message: "\(error.localizedDescription)")
+    }
+    
 }
 //MARK:- Forgot Password
 extension AlertManager {
@@ -84,7 +92,7 @@ extension AlertManager {
 }
 //MARK:- Fetching User Errors
 extension AlertManager {
-
+    
     public static func showFetchingUserError(on vc:UIViewController,with error:Error){
         self.showBasicAlert(on: vc, title: "Error Fetching User", message: "\(error.localizedDescription)")
     }
@@ -96,7 +104,7 @@ extension AlertManager {
 }
 //MARK:- TextIsEmpty
 extension AlertManager {
-
+    
     public static func TextEmptyError(on vc:UIViewController){
         self.showBasicAlert(on: vc, title: "Error", message: "Please fill all the fields")
     }

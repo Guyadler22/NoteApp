@@ -18,9 +18,9 @@ class FirestoreServiceManager{
     
     internal let db = Firestore.firestore()
     
+    
     func saveNoteForTheUser(_ note:Note) {
         do {
-         
             try db.collection("users")
                 .document(Auth.auth().currentUser!.uid)
                 .collection("Notes")
@@ -31,10 +31,11 @@ class FirestoreServiceManager{
         }
     }
     
-    func addNewNoteForTheUser(_ note:inout Note) {
-        note.noteID =   UUID.init().uuidString
+    func addNewNoteForTheUser(_ note: inout Note) {
+        note.noteID = UUID.init().uuidString
         saveNoteForTheUser(note)
     }
+    
     func getNotesListAsPer(_ ownerID:String ,_ completionHandler: @escaping (_ status:Bool, _ message:String, _ notes:[Note]?) -> Void) {
         let docRef =  db.collection("users")
             .document(Auth.auth().currentUser!.uid)
@@ -69,22 +70,17 @@ class FirestoreServiceManager{
     }
     
     
-    //TODO: Update the note for spesific UserID
-    
-    
-    //TODO: delete the note for spesific UserID
-    
     func deleteDataFromUser(_ note:Note){
         db.collection("users")
             .document(Auth.auth().currentUser!.uid)
             .collection("Notes")
             .document("\(note.noteID)")
             .delete() { err in
-            if let err = err {
-                print("Error Removing document: \(err)")
-            } else {
-                print("Document successfully removed!")
+                if let err = err {
+                    print("Error Removing document: \(err)")
+                } else {
+                    print("Document successfully removed!")
+                }
             }
-        }
     }
 }

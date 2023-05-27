@@ -56,7 +56,8 @@ class RegisterViewController: UIViewController {
         
         self.signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         self.signUpButton.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
-                
+
+        
         self.setupUI()
 
     }
@@ -123,10 +124,9 @@ class RegisterViewController: UIViewController {
     //MARK:- Selectors
     
     @objc private func didTapSignUp(){
-        let registerUserRequset = RegisterUserRequest(
-            username: self.usernameField.text ?? "",
-            email: self.emailField.text ?? "",
-            password: self.passwordField.text ?? "" )
+        let registerUserRequset = RegisterUserRequest(username: self.usernameField.text ?? "",
+                                                      email: self.emailField.text ?? "",
+                                                      password: self.passwordField.text ?? "" )
         
         //username check
         if !Validator.isValidUsername(for: registerUserRequset.username) {
@@ -153,7 +153,13 @@ class RegisterViewController: UIViewController {
             }
             if wasRegisterd {
                 if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-                    sceneDelegate.checkAuthentication()
+                    AlertManager.showSeccesfullAlert(on: self)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                       
+                        sceneDelegate.checkAuthentication()
+                    }
+                   
                 }
             }else{
                 AlertManager.showRegistrationErrorAlert(on: self)
@@ -189,10 +195,6 @@ extension RegisterViewController: UITextViewDelegate {
         self.present(nav, animated: true, completion: nil)
     }
     
-//    func textViewDidChangeSelection(_ textView: UITextView) {
-//        textView.delegate = nil
-//        textView.selectedTextRange = nil
-//        textView.delegate = self
-//    }
+
     
 }

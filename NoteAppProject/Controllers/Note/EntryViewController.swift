@@ -9,17 +9,15 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-//This screen shows after select any note 
+//Add note
 class EntryViewController: UIViewController {
-        
+    
     static let identifier = "EntryViewController"
-
+    
     private let titleNote = CustomTextField(fieldType: .titleTextField)
     
     private let noteTextField = CustomTextField(fieldType: .noteTextField)
     
-    public var completion: ((String, String) -> Void )?
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +34,13 @@ class EntryViewController: UIViewController {
         setupUI()
     }
     
+    // MARK:- Setup UI
+    
     private func setupUI(){
         titleNote.translatesAutoresizingMaskIntoConstraints = false
         noteTextField.translatesAutoresizingMaskIntoConstraints = false
-
-
+        
+        
         NSLayoutConstraint.activate([
             
             self.titleNote.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor,constant: 10),
@@ -61,19 +61,36 @@ class EntryViewController: UIViewController {
     //MARK:- Selectors
     
     @objc private func didTapSaveButton(){
-     //check if the text if not empty,
+        //check if the text if not empty,
+        print("0")
         if let text = titleNote.text, !text.isEmpty, !noteTextField.text!.isEmpty {
-            var noteToSave = Note(noteID: "", title: text, noteText: noteTextField.text ?? "", ownerID: Auth.auth().currentUser?.email ?? "")
-            FirestoreServiceManager.shared.addNewNoteForTheUser(&noteToSave)
-            
-            navigationController?.popToRootViewController(animated: true)
-            
+            print("0.5")
+            LocationManager.shared.getUserLocation { [weak self] location in
+                DispatchQueue.main.async {
+                    print("0.75")
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    print("1")
+
+                    var noteToSave = Note(noteID: "",title: text,noteText: strongSelf.noteTextField.text ?? "",
+                                          addedIn: NoteLatLng(latitude: location.coordinate.latitude, longtitude:location.coordinate.longitude),
+                                          ownerID: Auth.auth().currentUser?.email ?? "")
+                    print("2")
+
+                    FirestoreServiceManager.shared.addNewNoteForTheUser(&noteToSave)
+
+                    print("3")
+
+                    strongSelf.navigationController?.popToRootViewController(animated: true)
+
+                }
+            }
+
         }else{
             AlertManager.TextEmptyError(on: self)
         }
         
     }
     
-   
-
 }

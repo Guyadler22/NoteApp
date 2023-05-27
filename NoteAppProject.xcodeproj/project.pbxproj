@@ -28,6 +28,8 @@
 		4B391DD929A7D26A005AC414 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B391DD829A7D26A005AC414 /* NoteTableViewCell.swift */; };
 		4B391DDE29A8D051005AC414 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B391DDD29A8D051005AC414 /* Note.swift */; };
 		4B391DE129ABAD70005AC414 /* NoteHandlerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B391DE029ABAD6B005AC414 /* NoteHandlerViewController.swift */; };
+		4B3BD9B82A14CAEC00455694 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3BD9B72A14CAEC00455694 /* MapViewController.swift */; };
+		4B3BD9C02A14D28B00455694 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3BD9BF2A14D28B00455694 /* LocationManager.swift */; };
 		4B468B35299BE3A200655948 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B468B34299BE3A200655948 /* AppDelegate.swift */; };
 		4B468B37299BE3A200655948 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B468B36299BE3A200655948 /* SceneDelegate.swift */; };
 		4B468B39299BE3A200655948 /* NoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B468B38299BE3A200655948 /* NoteTableViewController.swift */; };
@@ -65,6 +67,8 @@
 		4B391DD829A7D26A005AC414 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		4B391DDD29A8D051005AC414 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		4B391DE029ABAD6B005AC414 /* NoteHandlerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteHandlerViewController.swift; sourceTree = "<group>"; };
+		4B3BD9B72A14CAEC00455694 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		4B3BD9BF2A14D28B00455694 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		4B468B31299BE3A100655948 /* NoteAppProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoteAppProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B468B34299BE3A200655948 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B468B36299BE3A200655948 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				4B468B53299BE78600655948 /* UserScreenTableViewController.swift */,
 				4B391CFD29A18A02005AC414 /* WebViewerViewController.swift */,
 				4B391D5729A3BB4B005AC414 /* AlertManager.swift */,
+				4B3BD9B72A14CAEC00455694 /* MapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				4B468B5A299BEE5D00655948 /* ApiCaller.swift */,
+				4B3BD9BF2A14D28B00455694 /* LocationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -366,6 +372,7 @@
 			files = (
 				4B391CEF29A0F647005AC414 /* LoginViewController.swift in Sources */,
 				4B468B54299BE78600655948 /* UserScreenTableViewController.swift in Sources */,
+				4B3BD9C02A14D28B00455694 /* LocationManager.swift in Sources */,
 				4B468B5B299BEE5D00655948 /* ApiCaller.swift in Sources */,
 				4B391CEC29A0F636005AC414 /* ForgotPasswordViewController.swift in Sources */,
 				4B391CFB29A138A4005AC414 /* CustomButton.swift in Sources */,
@@ -391,6 +398,7 @@
 				4B468B62299BF07A00655948 /* User.swift in Sources */,
 				4B865F3129B8A27200A219D1 /* DataModel.xcdatamodeld in Sources */,
 				4B391CF529A0F9B3005AC414 /* AuthHeaderView.swift in Sources */,
+				4B3BD9B82A14CAEC00455694 /* MapViewController.swift in Sources */,
 				4B391CF829A131BB005AC414 /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

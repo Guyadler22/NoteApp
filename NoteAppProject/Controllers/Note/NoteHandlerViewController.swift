@@ -9,17 +9,15 @@ import UIKit
 
 class NoteHandlerViewController: UIViewController {
     
-
     public var note:Note?
 
-    public var completion: ((String) -> Void )?
+//    public var completion: ((String) -> Void )?
     
     private let titleLabel:UILabel = {
         let label = UILabel()
          label.textColor = .secondaryLabel
          label.textAlignment = .center
          label.font = .systemFont(ofSize: 24, weight: .medium)
-         label.text = "Error"
          label.translatesAutoresizingMaskIntoConstraints = false
          return label
      }()
@@ -71,8 +69,19 @@ class NoteHandlerViewController: UIViewController {
     //MARK:- Selectors
     
     @objc private func didTapSaveButton(){
-        note!.noteText =  self.textView.text
+//
+//        if let note = note?.noteText, note.isEmpty {
+//            AlertManager.TextEmptyError(on: self)
+//            return
+//        }
+//
+//        note?.noteText = self.textView.text
+
+        note!.noteText = self.textView.text
+        
         FirestoreServiceManager.shared.saveNoteForTheUser(note!)
+
         navigationController?.popToRootViewController(animated: true)
+       
     }
 }

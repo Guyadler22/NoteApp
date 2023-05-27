@@ -11,16 +11,17 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class NoteTableViewController: UIViewController {
-        
+    
     static let identifier = "note"
     
-     var notes:[Note] = [Note]()
+    var notes:[Note] = [Note]()
     
     private let noteTableView:UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(NoteTableViewCell.self, forCellReuseIdentifier: NoteTableViewCell.identifier)
         return tableView
     }()
+    
     
     private let label:UILabel = {
         let label = UILabel()
@@ -41,7 +42,6 @@ class NoteTableViewController: UIViewController {
         
         view.addSubview(noteTableView)
         view.addSubview(label)
-        
         
         noteTableView.delegate = self
         noteTableView.dataSource = self
@@ -71,7 +71,6 @@ class NoteTableViewController: UIViewController {
                     strongSelf.noteTableView.reloadData()
                     if strongSelf.notes.count != 0 {
                         strongSelf.noteTableView.isHidden = false
-                        
                     }
                 }
             }
@@ -93,12 +92,6 @@ class NoteTableViewController: UIViewController {
         self.label.isHidden = true
         self.noteTableView.isHidden = false
         
-        vc.completion = { noteTitle, note in
-            self.navigationController?.popToRootViewController(animated: true)
-            self.notes.append(Note(noteID: "", title: noteTitle, noteText: note))
-            self.noteTableView.reloadData()
-        }
-        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -114,7 +107,7 @@ class NoteTableViewController: UIViewController {
             }
         }
     }
-
+    
     //MARK:- UI Setup
     private func setupLabel(){
         
@@ -128,6 +121,17 @@ class NoteTableViewController: UIViewController {
 }
 
 //MARK:- extensions
+
+extension NoteTableViewController : NoteTableViewCellDelegate {
+    
+    func onShowNoteLocation(note: Note) {
+        // Navigate to MapViewController with the given note
+        let vc = MapViewController()
+        vc.setNote(note)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
 
 extension NoteTableViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -147,10 +151,11 @@ extension NoteTableViewController: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         
         let notes = self.notes[indexPath.row]
-    
+        
         cell.setNoteDetails(notes)
         
-    
+        cell.setCellNoteDelegate(self)
+        
         return cell
     }
     
@@ -159,18 +164,15 @@ extension NoteTableViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let note = self.notes[indexPath.row]
-
+        
         let vc = NoteHandlerViewController()
+        
         vc.navigationItem.largeTitleDisplayMode = .never
+        
         navigationController?.pushViewController(vc, animated: true)
         
         vc.note = note
         
-        //Show note controller
-//
-//        let vc = EntryViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
-//
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -188,21 +190,25 @@ extension NoteTableViewController: SwipeTableViewCellDelegate {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
-
+        
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
             // handle action by updating model with deletion
             
-           let document = self.notes.remove(at: indexPath.row)
+            let document = self.notes.remove(at: indexPath.row)
             
             FirestoreServiceManager.shared.deleteDataFromUser(document)
             
             self.noteTableView.reloadData()
             
+            if self.notes.count == 0 {
+                self.label.isHidden = false
+            }
+            
         }
-
+        
         // customize the action appearance
         deleteAction.image = UIImage(named: "delete")
-
+        
         return [deleteAction]
     }
     

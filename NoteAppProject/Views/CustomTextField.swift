@@ -50,7 +50,7 @@ class CustomTextField: UITextField {
             
         case .titleTextField:
             self.placeholder = "Note titel"
-        
+            
         case .noteTextField:
             self.placeholder = "Write your note here"
             self.font = .systemFont(ofSize: 19, weight: .regular)

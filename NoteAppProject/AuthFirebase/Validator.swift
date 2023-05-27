@@ -13,7 +13,6 @@ class Validator {
     
     static func isValidEmail(with email:String) -> Bool {
         let email = email.trimmingCharacters(in: .whitespacesAndNewlines)
-        
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.{1}[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
@@ -28,7 +27,13 @@ class Validator {
 
     static func isPasswordValid(for password:String) -> Bool {
         let password = password.trimmingCharacters(in: .whitespacesAndNewlines)
-        let passwordRegEx = "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-91])(?=.*[$0S#1%*?8]).{6,32}$"
+        let passwordRegEx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$"
+    /*   At least one lower case (?=.*?[a-z])
+         At least one upper case(?=.*?[A-Z])
+         At least one digit, (?=.*?[0-9])
+         At least one special character, (?=.*?[#?!@$%^&*-])
+         Minimum eight in length .{8,} (with the anchors)
+    */
         let passwordPred = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
         return passwordPred.evaluate(with: password)
     }

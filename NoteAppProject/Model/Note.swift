@@ -7,10 +7,17 @@
 
 import Foundation
 
+
+struct NoteLatLng : Codable {
+    var latitude : Double
+    var longtitude: Double
+}
+
 struct Note: Codable  {
     var noteID: String
     var title:String
     var noteText:String
+    var addedIn : NoteLatLng
     var ownerID: String = ""
 }
 
